@@ -1136,6 +1136,7 @@ h1, h2, h3, h4, h5, h6 {
 .footer-content {
   display: flex;
   justify-content: space-between;
+  align-items: center; /* Centered in 0,0 axis */
   gap: 40px;
   margin-bottom: 40px;
   flex-wrap: wrap;
