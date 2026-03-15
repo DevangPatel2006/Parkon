@@ -1136,7 +1136,7 @@ h1, h2, h3, h4, h5, h6 {
 .footer-content {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Centered in 0,0 axis */
+  align-items: flex-start; /* Consistent top alignment for all headers */
   gap: 40px;
   margin-bottom: 40px;
   flex-wrap: wrap;
@@ -1152,9 +1152,8 @@ h1, h2, h3, h4, h5, h6 {
   min-width: 350px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  align-items: flex-start; /* Aligned left and top */
+  text-align: left;
 }
 
 .footer-logo-img-small {
@@ -1481,25 +1480,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.4;
 }
 
-/* Professional Corporate Footer */
-.footer-professional {
-  background: #050505;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 100px 0 40px;
-  margin-top: 120px;
-}
-
-.footer-main {
-  display: grid;
-  grid-template-columns: 1.5fr repeat(3, 1fr);
-  gap: 60px;
-  margin-bottom: 80px;
-}
-
-.footer-logo {
-  height: 32px;
-  margin-bottom: 24px;
-}
+/* Removed redundant footer styles */
 
 .footer-desc {
   color: var(--text-muted);
