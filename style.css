@@ -1368,7 +1368,7 @@ h1, h2, h3, h4, h5, h6 {
   gap: 80px;
   align-items: flex-start;
   position: relative;
-  padding-bottom: 50vh; /* Allow last item to comfortably scroll into middle */
+  padding-bottom: 20vh; /* Re-adding space so user can scroll down to read the last item freely */
 }
 
 .problem-scroll-texts {
@@ -1396,8 +1396,13 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 16px;
-  color: var(--accent-green);
+  color: #666; /* Grey default */
   letter-spacing: -0.5px;
+  transition: color 0.4s ease;
+}
+
+.problem-scroll-step.active h3 {
+  color: var(--accent-green);
 }
 
 .problem-scroll-step p {
@@ -1406,11 +1411,24 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-muted);
 }
 
+.problem-scroll-step:last-child {
+  min-height: auto;
+  padding-bottom: 10vh; /* Keeps the text off the exact bottom */
+}
+
+.section-legal {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  margin: 20px auto 60px;
+  max-width: 600px;
+}
+
 .problem-sticky-visuals {
   flex: 1;
   position: sticky;
   top: 140px; /* Offset to clear the navbar cleanly */
-  height: 600px;
+  height: 520px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1419,8 +1437,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Base Problem Card Styling used in sticky visuals */
 .problem-card {
   width: 100%;
-  max-width: 600px;
-  height: 600px;
+  max-width: 500px;
+  height: 520px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 24px;
@@ -1430,6 +1448,12 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.5s ease;
   display: flex;
   flex-direction: column;
+}
+
+.problem-card.sticky-card {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transform: translateY(0);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
 }
 
 .mobile-visual-card {
@@ -1443,10 +1467,19 @@ h1, h2, h3, h4, h5, h6 {
   flex: 1;
   width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
-.problem-card:hover .feature-visual img {
-  transform: scale(1.05);
+.feature-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: visual-slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes visual-slide-up {
+  0% { transform: translateY(20px) scale(1.05); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 /* Mobile Responsive Overrides */
