@@ -102,7 +102,7 @@ function App() {
     {
       badge: "PROBLEM 02",
       title: "Wasted Productivity",
-      desc: "Drivers lose 40+ minutes per day circling city blocks, causing 30% of all urban traffic congestion.",
+      desc: "Drivers lose 15 mins per day circling city blocks, causing 30% of all urban traffic congestion.",
       img: "/city_traffic_real_night_1773570820475.png",
       solType: "PARKON FIX →",
       solText: "Rapid Driver Routing."
