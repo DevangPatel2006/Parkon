@@ -244,6 +244,29 @@ ul {
   max-width: 1400px; /* Stretch further */
 }
 
+/* 
+  Gracefully scale the entire hero design to fit within medium/small laptop viewports 
+  without breaking proportions, labels, or layout positioning. 
+*/
+@media (max-width: 1600px) and (min-width: 993px), (max-height: 900px) and (min-width: 993px) {
+  .hero-container, .navbar {
+    transform: scale(0.85);
+    transform-origin: center center;
+  }
+}
+@media (max-width: 1366px) and (min-width: 993px), (max-height: 800px) and (min-width: 993px) {
+  .hero-container, .navbar {
+    transform: scale(0.75);
+    transform-origin: center center;
+  }
+}
+@media (max-width: 1150px) and (min-width: 993px), (max-height: 700px) and (min-width: 993px) {
+  .hero-container, .navbar {
+    transform: scale(0.65);
+    transform-origin: center center;
+  }
+}
+
 .hero-content {
   flex: 1.2;
   max-width: 650px;
