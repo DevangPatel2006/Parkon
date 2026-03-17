@@ -1362,6 +1362,125 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
 }
 
+/* Multipl-style Sticky Scrolling CSS */
+.problem-sticky-container {
+  display: flex;
+  gap: 80px;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 50vh; /* Allow last item to comfortably scroll into middle */
+}
+
+.problem-scroll-texts {
+  flex: 1;
+  max-width: 500px;
+}
+
+.problem-scroll-step {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.3;
+  transform: translateX(-20px);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 40px 0;
+}
+
+.problem-scroll-step.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.problem-scroll-step h3 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--accent-green);
+  letter-spacing: -0.5px;
+}
+
+.problem-scroll-step p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.problem-sticky-visuals {
+  flex: 1;
+  position: sticky;
+  top: 140px; /* Offset to clear the navbar cleanly */
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Base Problem Card Styling used in sticky visuals */
+.problem-card {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transition: all 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-visual-card {
+  display: none; /* Hidden on desktop, shown on mobile */
+  margin-top: 32px;
+  height: 300px; /* Shorter on mobile */
+}
+
+/* Feature Visual inside Problem Card */
+.feature-visual {
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+.problem-card:hover .feature-visual img {
+  transform: scale(1.05);
+}
+
+/* Mobile Responsive Overrides */
+@media (max-width: 992px) {
+  .problem-sticky-container {
+    flex-direction: column;
+    gap: 0;
+    padding-bottom: 0;
+  }
+  
+  .problem-scroll-texts {
+    max-width: 100%;
+  }
+
+  .problem-scroll-step {
+    min-height: auto;
+    padding: 60px 0;
+    opacity: 1;
+    transform: none;
+  }
+
+  .problem-scroll-step h3 {
+    font-size: 2rem;
+  }
+
+  .problem-sticky-visuals {
+    display: none; /* Hide sticky visuals on mobile */
+  }
+
+  .mobile-visual-card {
+    display: block; /* Show individual cards under text on mobile */
+  }
+}
+
 /* Problem feature cards */
 .feature-card.problem-card {
   border-top: 2px solid rgba(255, 255, 255, 0.1);
@@ -1385,10 +1504,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Green "PARKON FIX" solution strip at bottom of each card */
 .solution-strip {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin-top: auto;
   background: linear-gradient(90deg, rgba(0,186,74,0.15), rgba(0,255,102,0.05));
   border-top: 1px solid rgba(0,186,74,0.25);
   color: var(--text-main);

@@ -72,6 +72,75 @@ function App() {
     }
   }, []);
 
+  const [activeProblem, setActiveProblem] = useState(0);
+
+  // Intersection Observer for the sticky scroll features
+  useEffect(() => {
+    const problemObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveProblem(Number(entry.target.getAttribute('data-index')));
+        }
+      });
+    }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+    const steps = document.querySelectorAll('.problem-scroll-step');
+    steps.forEach(step => problemObserver.observe(step));
+    
+    return () => problemObserver.disconnect();
+  }, []);
+
+  const problemsList = [
+    {
+      badge: "PROBLEM 01",
+      title: "Dead Assets",
+      desc: "Malls and offices lose millions in potential revenue as prime parking sits empty for 12+ hours daily.",
+      img: "/parking_dead_assets_real_1773570804592.png",
+      solType: "PARKON FIX →",
+      solText: "100% Asset Utility."
+    },
+    {
+      badge: "PROBLEM 02",
+      title: "Wasted Productivity",
+      desc: "Drivers lose 40+ minutes per day circling city blocks, causing 30% of all urban traffic congestion.",
+      img: "/city_traffic_real_night_1773570820475.png",
+      solType: "PARKON FIX →",
+      solText: "Rapid Driver Routing."
+    },
+    {
+      badge: "MISSION 2026",
+      title: "EV Infrastructure Gap",
+      desc: "We are planning universal EV charging networks at every Parkon spot, solving the charging crisis at the source.",
+      img: "/ev_charger_spot_real_1773570837985.png",
+      solType: "VISION →",
+      solText: "Charging for Every Citizen."
+    },
+    {
+      badge: "PROBLEM 03",
+      title: "Security Blindspots",
+      desc: "Buildings struggle with unauthorized access and insecure cash handling. It's pure guesswork.",
+      img: "/parking_security_gate_real_1773570856314.png",
+      solType: "PARKON FIX →",
+      solText: "Total Network Visibility."
+    },
+    {
+      badge: "PROBLEM 04",
+      title: "Revenue Leakage",
+      desc: "Manual systems lead to massive payout delays and unaccounted transactions. Your money is at risk.",
+      img: "/revenue_leakage_real_1773570985510.png",
+      solType: "PARKON FIX →",
+      solText: "Automated Instant Settlements."
+    },
+    {
+      badge: "PROBLEM 05",
+      title: "Wasted Urban Space",
+      desc: "Valuable land is locked behind \"Staff Only\" signs while the city starves for parking infrastructure.",
+      img: "/urban_space_vision_1773570415985.png",
+      solType: "PARKON FIX →",
+      solText: "Smart Inventory Management."
+    }
+  ];
+
   return (
     <>
       <header className="navbar-wrapper">
@@ -292,130 +361,32 @@ function App() {
             <p className="section-subtitle">Traditional parking is manual, fragmented, and inefficient. We are transforming city space into intelligent, revenue-generating assets.</p>
           </div>
         </div>
+        <div className="problem-sticky-container container">
+          <div className="problem-scroll-texts">
+            {problemsList.map((prob, i) => (
+              <div key={i} className={`problem-scroll-step ${activeProblem === i ? 'active' : ''}`} data-index={i}>
+                <div className="problem-badge">{prob.badge}</div>
+                <h3>{prob.title}</h3>
+                <p>{prob.desc}</p>
+                
+                {/* Mobile visual logic (hidden on desktop, visible on mobile) */}
+                <div className="problem-card mobile-visual-card">
+                  <div className="feature-visual">
+                    <img src={prob.img} alt={prob.title} />
+                  </div>
+                  <div className="solution-strip"><span className="sol-label">{prob.solType}</span> {prob.solText}</div>
+                </div>
+              </div>
+            ))}
+          </div>
 
-        <div className="problem-slider-container">
-          <div className="problem-slider-track">
-            {/* Slide 1: Empty Spots */}
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 01</div>
-              <h3>Dead Assets</h3>
-              <p>Malls and offices lose millions in potential revenue as prime parking sits empty for 12+ hours daily.</p>
-              <div className="feature-visual">
-                <img src="/parking_dead_assets_real_1773570804592.png" alt="Empty premium parking" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> 100% Asset Utility.</div>
-            </div>
-
-            {/* Slide 2: Congestion */}
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 02</div>
-              <h3>Wasted Productivity</h3>
-              <p>Drivers lose 40+ minutes per day circling city blocks, causing 30% of all urban traffic congestion.</p>
-              <div className="feature-visual">
-                <img src="/city_traffic_real_night_1773570820475.png" alt="City traffic congestion" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> Rapid Driver Routing.</div>
-            </div>
-
-            {/* Slide 3: EV Infrastructure */}
-            <div className="problem-card">
-              <div className="problem-badge">MISSION 2026</div>
-              <h3>EV Infrastructure Gap</h3>
-              <p>We are planning universal EV charging networks at every Parkon spot, solving the charging crisis at the source.</p>
-              <div className="feature-visual">
-                <img src="/ev_charger_spot_real_1773570837985.png" alt="Future EV charging" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">VISION →</span> Charging for Every Citizen.</div>
-            </div>
-
-            {/* Slide 4: Security */}
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 03</div>
-              <h3>Security Blindspots</h3>
-              <p>Buildings struggle with unauthorized access and insecure cash handling. It's pure guesswork.</p>
-              <div className="feature-visual">
-                <img src="/parking_security_gate_real_1773570856314.png" alt="Modern parking security" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> Total Network Visibility.</div>
-            </div>
-
-            {/* Slide 5: Payouts */}
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 04</div>
-              <h3>Revenue Leakage</h3>
-              <p>Manual systems lead to massive payout delays and unaccounted transactions. Your money is at risk.</p>
-              <div className="feature-visual">
-                <img src="/revenue_leakage_real_1773570985510.png" alt="Digital revenue flow" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> Automated Instant Settlements.</div>
-            </div>
-
-            {/* Slide 6: Land Use */}
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 05</div>
-              <h3>Wasted Urban Space</h3>
-              <p>Valuable land is locked behind "Staff Only" signs while the city starves for parking infrastructure.</p>
-              <div className="feature-visual">
-                <img src="/urban_space_vision_1773570415985.png" alt="Urban space optimization" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> Smart Inventory Management.</div>
-            </div>
-
-            {/* Duplicate set for infinite scroll */}
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 01</div>
-              <h3>Dead Assets</h3>
-              <p>Malls and offices lose millions in potential revenue as prime parking sits empty for 12+ hours daily.</p>
-              <div className="feature-visual">
-                <img src="/parking_dead_assets_real_1773570804592.png" alt="Empty premium parking" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> 100% Asset Utility.</div>
-            </div>
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 02</div>
-              <h3>Wasted Productivity</h3>
-              <p>Drivers lose 40+ minutes per day circling city blocks, causing 30% of all urban traffic congestion.</p>
-              <div className="feature-visual">
-                <img src="/city_traffic_real_night_1773570820475.png" alt="City traffic congestion" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> Rapid Driver Routing.</div>
-            </div>
-            <div className="problem-card">
-              <div className="problem-badge">MISSION 2026</div>
-              <h3>EV Infrastructure Gap</h3>
-              <p>We are planning universal EV charging networks at every Parkon spot, solving the charging crisis at the source.</p>
-              <div className="feature-visual">
-                <img src="/ev_charger_spot_real_1773570837985.png" alt="Future EV charging" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">VISION →</span> Charging for Every Citizen.</div>
-            </div>
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 03</div>
-              <h3>Security Blindspots</h3>
-              <p>Buildings struggle with unauthorized access and insecure cash handling. It's pure guesswork.</p>
-              <div className="feature-visual">
-                <img src="/parking_security_gate_real_1773570856314.png" alt="Modern parking security" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> Total Network Visibility.</div>
-            </div>
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 04</div>
-              <h3>Revenue Leakage</h3>
-              <p>Manual systems lead to massive payout delays and unaccounted transactions. Your money is at risk.</p>
-              <div className="feature-visual">
-                <img src="/revenue_leakage_real_1773570985510.png" alt="Digital revenue flow" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> Automated Instant Settlements.</div>
-            </div>
-            <div className="problem-card">
-              <div className="problem-badge">PROBLEM 05</div>
-              <h3>Wasted Urban Space</h3>
-              <p>Valuable land is locked behind "Staff Only" signs while the city starves for parking infrastructure.</p>
-              <div className="feature-visual">
-                <img src="/urban_space_vision_1773570415985.png" alt="Urban space optimization" />
-              </div>
-              <div className="solution-strip"><span className="sol-label">PARKON FIX →</span> Smart Inventory Management.</div>
-            </div>
+          <div className="problem-sticky-visuals">
+             <div className="problem-card sticky-card">
+                <div className="feature-visual">
+                  <img src={problemsList[activeProblem]?.img} alt={problemsList[activeProblem]?.title} />
+                </div>
+                <div className="solution-strip"><span className="sol-label">{problemsList[activeProblem]?.solType}</span> {problemsList[activeProblem]?.solText}</div>
+             </div>
           </div>
         </div>
         <p className="section-legal">Built to scale — from a single parking lot to city-wide infrastructure.</p>
