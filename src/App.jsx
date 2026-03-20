@@ -11,13 +11,13 @@ function App() {
       setSpots(prev => {
         const change = Math.random() > 0.5 ? 1 : -1;
         const next = prev + change;
-        return next > 45 || next < 35 ? prev : next;
+        return next > 48 || next < 32 ? prev : next;
       });
-    }, 4000);
+    }, 1200); /* Sped up spots updates */
 
     const payoutInterval = setInterval(() => {
-      setPayout(prev => prev + Math.floor(Math.random() * 3) + 1);
-    }, 3000);
+      setPayout(prev => prev + Math.floor(Math.random() * 12) + 3);
+    }, 600); /* Sped up payout updates significantly */
 
     return () => {
       clearInterval(spotsInterval);
@@ -73,6 +73,7 @@ function App() {
   }, []);
 
   const [activeProblem, setActiveProblem] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Intersection Observer for the sticky scroll features
   useEffect(() => {
@@ -148,18 +149,34 @@ function App() {
           <a href="#" className="logo">
             <img src="/ParkOn_BGRemoved.png" alt="Parkon Logo" className="logo-img" />
           </a>
-          <ul className="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#mission">Mission</a></li>
-            <li><a href="#how-it-works">How it works</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#cities">Cities</a></li>
-            <li><a href="#contact">Contact</a></li>
+          <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+            <li><a href="#about" onClick={() => setIsMenuOpen(false)}>About</a></li>
+            <li><a href="#mission" onClick={() => setIsMenuOpen(false)}>Mission</a></li>
+            <li><a href="#how-it-works" onClick={() => setIsMenuOpen(false)}>How it works</a></li>
+            <li><a href="#features" onClick={() => setIsMenuOpen(false)}>Features</a></li>
+            <li><a href="#cities" onClick={() => setIsMenuOpen(false)}>Cities</a></li>
+            <li><a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+            <li className="mobile-only-li">
+              <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary" rel="noreferrer" onClick={() => setIsMenuOpen(false)}>Join Waitlist</a>
+            </li>
           </ul>
           <div className="nav-actions">
-            <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary nav-cta" rel="noreferrer">Join Waitlist</a>
-            <button className="mobile-toggle" aria-label="Toggle Menu">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary nav-cta desktop-only-cta" rel="noreferrer">Join Waitlist</a>
+            <button className="mobile-toggle" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                {isMenuOpen ? (
+                  <>
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </>
+                ) : (
+                  <>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                  </>
+                )}
+              </svg>
             </button>
           </div>
         </nav>
@@ -215,7 +232,7 @@ function App() {
 
             <div className="hero-ctas">
               <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary btn-large" rel="noreferrer">
-                Get early access
+                Join waitlist
                 <span className="arrow-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </span>
@@ -358,7 +375,10 @@ function App() {
           <div className="problem-intro">
             <span className="problem-label">THE INFRASTRUCTURE GAP</span>
             <h2 className="section-title">Urban Parking is Broken.<br/><span className="text-gradient">We're Building the Fix.</span></h2>
-            <p className="section-subtitle">Traditional parking is manual, fragmented, and inefficient. We are transforming city space into intelligent, revenue-generating assets.</p>
+            <p className="section-subtitle">
+              <span className="desktop-text">Traditional parking is manual, fragmented, and inefficient. We are transforming city space into intelligent, revenue-generating assets.</span>
+              <span className="mobile-text">Transforming inefficient parking into intelligent, revenue-generating assets.</span>
+            </p>
           </div>
         </div>
         <div className="problem-sticky-container container">
@@ -422,7 +442,10 @@ function App() {
 
       <section className="comparison-section container">
          <h2 className="section-title">Stop the Guesswork. <br/><span className="text-gradient">Start the Growth.</span></h2>
-         <p className="section-subtitle">Why settle for empty spaces and frustrated drivers when you can have intelligent, revenue-generating infrastructure?</p>
+         <p className="section-subtitle">
+           <span className="desktop-text">Why settle for empty spaces and frustrated drivers when you can have intelligent, revenue-generating infrastructure?</span>
+           <span className="mobile-text">Turn empty spaces and frustrated drivers into revenue-generating infrastructure.</span>
+         </p>
          
          <div className="comparison-container">
            <div className="compare-column broken-way">
@@ -527,7 +550,10 @@ function App() {
       <section className="marquee-section">
         <div className="container">
           <h2 className="section-title">The scale of the <span className="text-gradient">parking crisis</span>.</h2>
-          <p className="section-subtitle">Parking congestion causes 30% of all urban traffic. Every city. Every day. Parkon is the fix.</p>
+          <p className="section-subtitle">
+            <span className="desktop-text">Parking congestion causes 30% of all urban traffic. Every city. Every day. Parkon is the fix.</span>
+            <span className="mobile-text">Parking causes 30% of urban traffic. Parkon is the fix.</span>
+          </p>
         </div>
         
         <div className="marquee-container">

@@ -185,8 +185,46 @@ ul {
   background: rgba(0, 186, 74, 0.1);
 }
 
+.mobile-only-li { display: none; }
+
 @media (max-width: 992px) {
-  .nav-links { display: none; }
+  .desktop-only-cta { display: none !important; }
+  .mobile-only-li { display: block; margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; }
+  .mobile-only-li a { display: block; text-align: center; padding: 12px; }
+  
+  .navbar { position: relative; }
+  
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    padding: 24px;
+    border-radius: 20px;
+    gap: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .nav-links.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .nav-links li a {
+    display: block;
+    text-align: center;
+    padding: 12px;
+  }
+  
   .mobile-toggle { display: flex; }
 }
 
@@ -647,22 +685,11 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 100%;
     margin-top: -10px;
   }
-  /* Fix insight labels overlap on mobile */
+  /* Completely hide insight labels on mobile for clean phone view */
   .insight-label {
-    position: relative;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    margin: 15px auto;
-    width: 90%;
-    max-width: 280px;
-    animation: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: none !important;
   }
-  .connector-line { display: none; }
-  /* Show only 2 labels on mobile to keep it clean */
-  .label-mid-left, .label-bottom-right, .label-bottom-left { display: none; }
+  .connector-line { display: none !important; }
 
   .trust-badges {
     grid-template-columns: 1fr;
@@ -673,9 +700,6 @@ h1, h2, h3, h4, h5, h6 {
   .hero-ctas {
     justify-content: center;
     width: 100%;
-  }
-  .nav-links {
-    display: none;
   }
 }
 
@@ -1301,7 +1325,6 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .hero-title { font-size: 2.2rem; margin-top: 20px; }
   .hero-section { padding-top: 80px; }
-  .btn-large { width: 100%; }
 }
 
 /* ================================================
@@ -1754,6 +1777,100 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     gap: 20px;
     text-align: center;
+  }
+}
+
+/* Premium Mobile Specific (<= 768px) Overrides */
+.mobile-text { display: none; }
+
+@media (max-width: 768px) {
+  /* Text Toggling */
+  .desktop-text { display: none; }
+  .mobile-text { display: inline; }
+  
+  /* Subtitle formatting strictly keeping to <= 2 lines */
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 32px;
+    padding: 0 16px;
+    line-height: 1.4;
+  }
+  
+  /* Hero section adjustments */
+  .hero-subtitle-small {
+    padding: 0 16px;
+  }
+  
+  /* Make trust badges a symmetrical 2x2 grid */
+  .trust-badges {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 16px;
+    padding-top: 24px;
+    margin-bottom: 32px;
+  }
+  
+  .badge {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .badge-icon {
+    font-size: 1.5rem;
+  }
+  
+  .badge-text strong {
+    font-size: 1rem;
+  }
+  
+  /* Relieve Congestion */
+  .compare-column {
+    padding: 24px;
+    border-radius: 20px;
+  }
+  
+  .col-title {
+    font-size: 1.3rem;
+    margin-bottom: 24px;
+  }
+  
+  .step-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .step-num {
+    font-size: 2rem;
+  }
+  
+  .problem-card, .feature-card.problem-card {
+    padding: 24px;
+  }
+  
+  /* Footer less padded */
+  .footer {
+    padding: 40px 0 20px;
+  }
+  .footer-content {
+    gap: 32px;
+  }
+
+  /* Make Hero CTAs smaller and lower */
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px; /* Moves sections down slightly */
+  }
+  .hero-ctas .btn-large {
+    padding: 10px 28px;
+    font-size: 0.8rem;
+    width: auto; 
+    min-width: 0; /* Let it wrap tightly */
+    border-radius: 50px;
+    letter-spacing: 0.5px;
   }
 }
 
