@@ -74,6 +74,19 @@ function App() {
 
   const [activeProblem, setActiveProblem] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Intersection Observer for the sticky scroll features
   useEffect(() => {
@@ -89,6 +102,31 @@ function App() {
     steps.forEach(step => problemObserver.observe(step));
     
     return () => problemObserver.disconnect();
+  }, []);
+
+  const [activeSteps, setActiveSteps] = useState([false, false, false]);
+
+  // Intersection Observer for How it Works steps on mobile
+  useEffect(() => {
+    const stepObserver = new IntersectionObserver((entries) => {
+      setActiveSteps(prev => {
+        const next = [...prev];
+        entries.forEach(entry => {
+          const index = Number(entry.target.getAttribute('data-step-index'));
+          if (entry.isIntersecting) {
+            next[index] = true;
+          } else if (entry.boundingClientRect.top > 0) {
+            next[index] = false;
+          }
+        });
+        return next;
+      });
+    }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+
+    const stepCards = document.querySelectorAll('.how-it-works-step');
+    stepCards.forEach(card => stepObserver.observe(card));
+    
+    return () => stepObserver.disconnect();
   }, []);
 
   const problemsList = [
@@ -145,7 +183,8 @@ function App() {
   return (
     <>
       <header className="navbar-wrapper">
-        <nav className="navbar">
+        <div className={`mobile-menu-overlay ${isMenuOpen ? 'active' : ''}`}></div>
+        <nav className="navbar" ref={navRef}>
           <a href="#" className="logo">
             <img src="/ParkOn_BGRemoved.png" alt="Parkon Logo" className="logo-img" />
           </a>
@@ -156,9 +195,6 @@ function App() {
             <li><a href="#features" onClick={() => setIsMenuOpen(false)}>Features</a></li>
             <li><a href="#cities" onClick={() => setIsMenuOpen(false)}>Cities</a></li>
             <li><a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
-            <li className="mobile-only-li">
-              <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary" rel="noreferrer" onClick={() => setIsMenuOpen(false)}>Join Waitlist</a>
-            </li>
           </ul>
           <div className="nav-actions">
             <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary nav-cta desktop-only-cta" rel="noreferrer">Join Waitlist</a>
@@ -520,24 +556,23 @@ function App() {
 
       <section className="how-it-works-section container">
         <h2 className="section-title">From problem to <span className="text-gradient">profit in 3 steps</span>.</h2>
-        <p className="section-subtitle">The simplest way for buildings to earn and drivers to never circle again.</p>
         
-        <div className="steps-grid" style={{gridTemplateColumns: 'repeat(3, 1fr)'}}>
-          <div className="step-card">
+        <div className="steps-grid">
+          <div className={`step-card how-it-works-step ${activeSteps[0] ? 'active' : ''}`} data-step-index={0}>
             <div className="step-num">01</div>
             <div className="step-content">
               <h3>List your unused spots</h3>
               <p>Building owners list idle parking on Parkon in minutes — no hardware needed to start.</p>
             </div>
           </div>
-          <div className="step-card">
+          <div className={`step-card how-it-works-step ${activeSteps[1] ? 'active' : ''}`} data-step-index={1}>
             <div className="step-num">02</div>
             <div className="step-content">
               <h3>Driver books instantly</h3>
               <p>Nearby drivers find, book and navigate to a guaranteed spot — no circling, no guessing.</p>
             </div>
           </div>
-          <div className="step-card">
+          <div className={`step-card how-it-works-step ${activeSteps[2] ? 'active' : ''}`} data-step-index={2}>
             <div className="step-num">03</div>
             <div className="step-content">
               <h3>Money hits your wallet</h3>
