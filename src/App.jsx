@@ -197,7 +197,7 @@ function App() {
             <li><a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
           </ul>
           <div className="nav-actions">
-            <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary nav-cta desktop-only-cta" rel="noreferrer">Join Waitlist</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4bQjvi5ot23Hb9Rhu2fyHy63nLYRKVPT36jGSoPiErMFncQ/viewform?usp=publish-editor" target="_blank" className="btn-primary nav-cta desktop-only-cta" rel="noreferrer">Join Waitlist</a>
             <button className="mobile-toggle" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 {isMenuOpen ? (
@@ -267,7 +267,7 @@ function App() {
             </div>
 
             <div className="hero-ctas">
-              <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary btn-large" rel="noreferrer">
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4bQjvi5ot23Hb9Rhu2fyHy63nLYRKVPT36jGSoPiErMFncQ/viewform?usp=publish-editor" target="_blank" className="btn-primary btn-large" rel="noreferrer">
                 Join waitlist
                 <span className="arrow-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -611,7 +611,7 @@ function App() {
         
         <div className="marquee-cta-container">
            <p>Ready to transform your parking?</p>
-           <a href="https://forms.gle/u4MPw6xvRg5NWkfh8" target="_blank" className="btn-primary btn-large" rel="noreferrer">Join the Waitlist</a>
+           <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4bQjvi5ot23Hb9Rhu2fyHy63nLYRKVPT36jGSoPiErMFncQ/viewform?usp=publish-editor" target="_blank" className="btn-primary btn-large" rel="noreferrer">Join the Waitlist</a>
         </div>
       </section>
 
