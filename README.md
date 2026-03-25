@@ -3,16 +3,12 @@
 
   <p><strong>The Operating System for Urban Parking.</strong></p>
   
-  <p>
-    <img src="https://img.shields.io/badge/Status-Currently%20Building-brightgreen?style=for-the-badge" alt="Currently Building" />
-    <img src="https://img.shields.io/badge/Framework-React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
-    <img src="https://img.shields.io/badge/Tooling-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-  </p>
+
 </div>
 
 ---
 
-## 🚀 Overview
+## Overview
 
 **Parkon** is a high-performance web application engineered to solve the urban parking crisis. By seamlessly connecting building owners' unused parking spots with drivers, it transforms "dead inventory" into intelligent, revenue-generating infrastructure. 
 
