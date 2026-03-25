@@ -1,6 +1,6 @@
 <div align="center">
   <img src="public/ParkOn_BGRemoved.png" alt="Parkon Logo" width="200" />
-  <h1>Parkon 🚦</h1>
+
   <p><strong>The Operating System for Urban Parking.</strong></p>
   
   <p>
